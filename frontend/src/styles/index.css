@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#0B1120] text-[#F8FAFC] antialiased selection:bg-[#8B7CFF]/30 selection:text-white font-sans;
+  }
+}
+
+/* Glassmorphism effects */
+.glass-panel {
+  background: rgba(19, 31, 50, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(51, 67, 92, 0.4);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(24, 39, 64, 0.85);
+  border-color: rgba(139, 124, 255, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Glowing badges */
+.glow-green {
+  box-shadow: 0 0 15px rgba(74, 222, 128, 0.35);
+}
+
+.glow-amber {
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.35);
+}
+
+.glow-red {
+  box-shadow: 0 0 20px rgba(248, 113, 113, 0.45);
+}
+
+.glow-purple {
+  box-shadow: 0 0 15px rgba(139, 124, 255, 0.35);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0B1120;
+}
+::-webkit-scrollbar-thumb {
+  background: #273449;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #33435C;
+}
