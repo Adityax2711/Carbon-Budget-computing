@@ -5,6 +5,46 @@
 
 ---
 
+## 🌐 Live Running Services & Localhost Access
+
+When running CarbonGuard locally, access each component via the following URLs:
+
+| Component | Localhost Link | Default Port | Description & Status |
+| :--- | :--- | :---: | :--- |
+| 🖥️ **Frontend Dashboard** | [**`http://localhost:5173`**](http://localhost:5173) | `5173` | **Cyberpunk Glassmorphic UI** (React 18 + Vite)<br>Real-time burn-rate charts, simulation control deck & audit logs |
+| ⚡ **Backend API Gateway** | [**`http://localhost:8000`**](http://localhost:8000) | `8000` | **FastAPI Core Engine**<br>High-performance asynchronous policy evaluation & telemetry ingress |
+| 📖 **Interactive Swagger Docs** | [**`http://localhost:8000/docs`**](http://localhost:8000/docs) | `8000` | **Live OpenAPI 3.0 Test Console**<br>Test endpoints, submit telemetry payloads, and inspect schema contracts |
+| 📑 **ReDoc Documentation** | [**`http://localhost:8000/redoc`**](http://localhost:8000/redoc) | `8000` | Clean, responsive developer reference documentation |
+| 📊 **Live Health & Metrics** | [**`http://localhost:8000/api/v1/metrics`**](http://localhost:8000/api/v1/metrics) | `8000` | Live telemetry JSON summary (active apps, budgets, carbon spent) |
+| 🐳 **Docker Compose (Full-Stack)** | [**`http://localhost:3000`**](http://localhost:3000) | `3000` | Production NGINX frontend container routing to backend container |
+
+### 🟢 Live Working Verification
+
+To verify that both frontend and backend are currently running and responding:
+
+```bash
+# 1. Test Backend API & Metrics Health
+curl http://localhost:8000/api/v1/metrics
+
+# Expected Response:
+# {"total_apps":3,"active_budgets":3,"total_carbon_consumed_g":22.55,"total_ledger_entries":3,"workloads_running":2,"workloads_paused":0,"workloads_throttled":0,"workloads_overridden":1,"duplicate_suppressions":1}
+
+# 2. Test Frontend Availability
+curl -I http://localhost:5173
+# Expected Response: HTTP/1.1 200 OK
+```
+
+> 💡 **Troubleshooting Tip: Windows Socket Permission / Port 8000 Conflict (`[WinError 10013]`)**:
+> If you encounter `[WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions` when running `uvicorn`, it means the backend service is **already running** on port `8000` (or Windows has reserved the port).
+> - You can immediately open [http://localhost:8000/docs](http://localhost:8000/docs) to use the active instance.
+> - Or to restart, locate and stop the existing process:
+>   ```powershell
+>   netstat -ano | findstr :8000
+>   Stop-Process -Id <PID> -Force
+>   ```
+
+---
+
 ## 🏗️ System Architecture & Data Flow
 
 ```mermaid
@@ -272,7 +312,7 @@ pip install -r requirements.txt
 # Run FastAPI dev server
 uvicorn app.main:app --reload --port 8000
 ```
-*API will be available at `http://localhost:8000` (Interactive Swagger docs at `http://localhost:8000/docs`).*
+*API will be available at [**`http://localhost:8000`**](http://localhost:8000) (Interactive Swagger docs at [**`http://localhost:8000/docs`**](http://localhost:8000/docs) and System Metrics at [**`http://localhost:8000/api/v1/metrics`**](http://localhost:8000/api/v1/metrics)).*
 
 #### 2. Start the Frontend Dashboard
 ```bash
@@ -284,7 +324,7 @@ npm install
 # Start Vite dev server
 npm run dev
 ```
-*Open `http://localhost:5173` in your browser.*
+*Open [**`http://localhost:5173`**](http://localhost:5173) in your browser to interact with the Cyberpunk Glassmorphic Dashboard.*
 
 ---
 
@@ -292,8 +332,8 @@ npm run dev
 ```bash
 docker compose up --build
 ```
-- Dashboard: `http://localhost:3000`
-- API & Docs: `http://localhost:8000/docs`
+- Dashboard: [**`http://localhost:3000`**](http://localhost:3000)
+- API & Docs: [**`http://localhost:8000/docs`**](http://localhost:8000/docs)
 
 ---
 
